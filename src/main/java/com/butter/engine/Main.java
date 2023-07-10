@@ -1,18 +1,27 @@
 package com.butter.engine;
 
+import com.butter.engine.core.EngineManager;
 import com.butter.engine.core.WindowManager;
+import com.butter.engine.core.utils.Consts;
 import org.lwjgl.Version;
 
 public class Main {
+    private static WindowManager window;
+    private static EngineManager engine;
+
      public static void main(String[] args) {
          System.out.println(Version.getVersion());
-         WindowManager window = new WindowManager("Butter Traced", 1600, 900, true);
-         window.init();
+         window = new WindowManager(Consts.TITLE, 1600, 900, false);
 
-         while(!window.windowShouldClose()) {
-             window.update();
+         engine = new EngineManager();
+         try {
+            engine.start();
+         } catch (Exception e) {
+             e.printStackTrace();
          }
-
-         window.cleanup();
      }
+
+    public static WindowManager getWindow() {
+        return window;
+    }
 }
